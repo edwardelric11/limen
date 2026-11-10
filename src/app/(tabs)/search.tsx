@@ -32,6 +32,7 @@ const EXAMPLES = [
   'Why do I idealize people who don’t want me?',
   'Why do we sabotage what matters to us?',
   'Why does passion fade in long relationships?',
+  'Why do I feel lonely around other people?',
 ];
 // Terms to begin with, each with the picture of an idea that belongs to it.
 const TERMS: [string, string][] = [['Projection', 'projection'], ['Attachment', 'pursue-withdraw'], ['Status', 'status-local'], ['Shame', 'shame-guilt'], ['Existentialism', 'the-absurd'], ['Jung', 'shadow'], ['Desire', 'wanting-liking'], ['Rejection', 'social-pain'], ['Power', 'disciplinary-power'], ['Memory', 'interpreter']];
@@ -42,13 +43,12 @@ export default function Search() {
   const params = useLocalSearchParams<{ q?: string }>();
   const [q, setQ] = useState(params.q ?? '');
   const [all, setAll] = useState(false);
-  const [round, setRound] = useState(0);
   const [f, setF] = useState('All');
   const [focus, setFocus] = useState(false);
   useEffect(() => { if (params.q) { setQ(params.q); setAll(false); setF('All'); } }, [params.q]);
   const r = useMemo(() => search(q), [q]);
   const empty = q.trim().length >= 2 && !r.ideas.length && !r.thinkers.length && !r.books.length && !r.quotes.length;
-  const examples = [0, 1, 2].map(i => EXAMPLES[(round * 3 + i) % EXAMPLES.length]);
+  const examples = EXAMPLES;
 
   const top = r.ideas[0] ? byId[r.ideas[0]] : null;
   const related = top ? top.rel.slice(0, 4).filter(([x]) => byId[x]).map(([x]) => x) : [];
@@ -77,16 +77,7 @@ export default function Search() {
 
       {q.trim().length < 2 ? (
         <View style={{ marginTop: 34 }}>
-          <T v="label" style={{ paddingHorizontal: 20, marginBottom: 2 }}>Ask a question</T>
-          {examples.map((x, i) => (
-            <View key={x}>
-              {i ? <Rule /> : null}
-              <Press onPress={() => setQ(x)} style={{ paddingHorizontal: 20, paddingVertical: 15 }}>
-                <T v="body" size={16.5}>{x}</T>
-              </Press>
-            </View>
-          ))}
-          <T v="label" style={{ paddingHorizontal: 20, marginTop: 34, marginBottom: 8 }}>Or begin with</T>
+          <T v="title" size={20} style={{ paddingHorizontal: 20, marginBottom: 14 }}>Begin with an idea</T>
           <Carousel itemW={124} gap={12}>
             {TERMS.map(([term, seed]) => (
               <Card key={term} variant="elevated" pad={0} radius={shape.lg} onPress={() => setQ(term)} accessibilityRole="button" accessibilityLabel={`Search ${term}`} style={{ width: 124 }}>
@@ -95,6 +86,15 @@ export default function Search() {
               </Card>
             ))}
           </Carousel>
+          <T v="title" size={20} style={{ paddingHorizontal: 20, marginTop: 34, marginBottom: 4 }}>10 questions to start your journey</T>
+          {examples.map((x, i) => (
+            <View key={x}>
+              {i ? <Rule /> : null}
+              <Press onPress={() => setQ(x)} style={{ paddingHorizontal: 20, paddingVertical: 11 }}>
+                <T v="body" size={16.5}>{x}</T>
+              </Press>
+            </View>
+          ))}
         </View>
       ) : empty ? (
         <View style={{ marginTop: 30 }}>

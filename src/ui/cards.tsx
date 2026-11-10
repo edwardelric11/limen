@@ -93,12 +93,12 @@ export function ThreadCard({ from, to, why, width }: { from: string; to: string;
 type Tone = 'cobalt' | 'gold' | 'bone' | 'red';
 /* A single sentence on a field. Cobalt + gold, bone + vermilion, or gold + cobalt. Not a card: a pause. */
 export function EditorialCard({ tone = 'cobalt', kicker, text, width, onPress }: { tone?: Tone; kicker: string; text: string; width: number; onPress?: () => void }) {
-  const bg = tone === 'cobalt' ? COBALT : tone === 'gold' ? GOLD : tone === 'red' ? OCHRE : BONE;
+  const bg = tone === 'cobalt' ? COBALT : tone === 'gold' ? GOLD : tone === 'red' ? '#FBE4DE' : BONE;
   const fg = tone === 'cobalt' ? BONE : INK;
   const mark = tone === 'cobalt' ? GOLD : tone === 'gold' ? COBALT : tone === 'red' ? COBALT : OCHRE;
   const body = (
     <View style={{ width, backgroundColor: bg, borderRadius: tone === 'red' ? 0 : 14, overflow: 'hidden', padding: space.lg, paddingVertical: 30, borderWidth: tone === 'bone' ? 1 : 0, borderColor: INK, minHeight: 190, justifyContent: 'flex-end' }}>
-      {tone === 'bone' ? <View style={{ position: 'absolute', left: space.lg, top: 0, width: 4, height: 38, backgroundColor: mark }} /> : <View style={{ position: 'absolute', right: -width * 0.12, top: -width * 0.12, width: width * 0.42, height: width * 0.42, borderRadius: width * 0.21, backgroundColor: mark }} />}
+      {tone === 'red' ? <View style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 5, backgroundColor: OCHRE }} /> : tone === 'bone' ? <View style={{ position: 'absolute', left: space.lg, top: 0, width: 4, height: 38, backgroundColor: mark }} /> : <View style={{ position: 'absolute', right: -width * 0.12, top: -width * 0.12, width: width * 0.42, height: width * 0.42, borderRadius: width * 0.21, backgroundColor: mark }} />}
       <T v="label" size={11.5} color={fg} style={{ opacity: 0.75, marginBottom: 10 }}>{kicker.toUpperCase()}</T>
       <T v="display" size={25} color={fg} style={{ lineHeight: 31 }}>{text}</T>
     </View>
