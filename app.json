@@ -39,6 +39,9 @@
           "backgroundColor": "#F5F0E6"
         }
       ]
-    ]
+    ],
+    "experiments": {
+      "baseUrl": "/app"
+    }
   }
 }

@@ -2,7 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npx expo export -p web",
+  "buildCommand": "npx expo export -p web --output-dir dist/app && cp web/shelf.html dist/index.html",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/app", "destination": "/app/index.html" },
+    { "source": "/app/(.*)", "destination": "/app/index.html" }
+  ]
 }
