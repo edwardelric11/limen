@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Limen",
+    "slug": "the-human-condition",
+    "scheme": "humancondition",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.alphonse.humancondition",
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.alphonse.humancondition",
+      "adaptiveIcon": {
+        "backgroundColor": "#3157D5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-mark.png",
+          "imageWidth": 120,
+          "backgroundColor": "#F5F0E6"
+        }
+      ]
+    ]
+  }
+}
