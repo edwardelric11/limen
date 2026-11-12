@@ -113,7 +113,7 @@ h1{margin:0;font-weight:700;font-size:clamp(46px,8.4vw,120px);line-height:1;lett
   <header class="bar"><span class="mark">LIMEN</span><a class="app" href="/app">Open the app</a></header>
   <section class="hero">
     <h1>Rediscover the classics.</h1>
-    <p class="sub" id="sub"></p>
+    <p class="sub" id="sub">Explore 400+ essential works in psychology and philosophy. Each distilled into ten ideas worth remembering.</p>
   </section>
   <main class="topics" id="topics"></main>
 </div>
@@ -136,7 +136,6 @@ const idx={};L.forEach((b,i)=>idx[b.id]=i);
 /* one of 12 tones per book; never the same as either neighbour */
 const PAL={};
 L.forEach((b,i)=>{let k=hv(b.id)%12;const a=PAL[L[i-1]?.id],c=PAL[L[i-2]?.id];while(k===a||k===c)k=(k+5)%12;PAL[b.id]=k});
-$('sub').textContent=L.length+' books on psychology and philosophy. Pick one up for a short summary and ten ideas worth keeping.';
 
 /* shelf */
 const topics=$('topics'),tip=$('tip');
