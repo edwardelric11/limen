@@ -45,10 +45,11 @@ function WebFrame({ bg, children }: { bg: string; children: React.ReactNode }) {
   const { width, height } = useWindowDimensions();
   if (Platform.OS !== 'web') return <>{children}</>;
   if (width < 520) return <View style={{ flex: 1, backgroundColor: bg }}>{children}</View>;
-  const h = Math.min(844, height - 40);
+  const SC = 0.8;
+  const h = Math.min(844, (height - 24) / SC - 20);
   return (
     <View style={{ flex: 1, backgroundColor: '#E8EBEA', alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{ width: APP_MAX + 20, height: h + 20, borderRadius: 58, backgroundColor: '#17191A', padding: 10, shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 40, shadowOffset: { width: 0, height: 20 } }}>
+      <View style={{ width: APP_MAX + 20, height: h + 20, borderRadius: 58, backgroundColor: '#17191A', padding: 10, shadowColor: '#000', shadowOpacity: 0.22, shadowRadius: 40, shadowOffset: { width: 0, height: 20 }, transform: [{ scale: SC }] }}>
         <View style={{ flex: 1, borderRadius: 48, overflow: 'hidden', backgroundColor: bg }}>
           <View style={{ height: 46, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', paddingHorizontal: 30, paddingBottom: 6, backgroundColor: bg }}>
             <T v="uiStrong" size={14.5}>9:41</T>
