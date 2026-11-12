@@ -168,7 +168,19 @@ function geo(R){
   return R.g=R.btns.map(el=>{const h=el.offsetHeight;return{w:el.offsetWidth,cw:h*100/147,l:el.offsetLeft}});
 }
 function rowEngine(row,books){
-  const R={row,books,btns:[],g:null,H:0,s:0,v:0,T:0,a:0,aT:0,dx:0,dxT:0,tX:0,tY:0,ptr:null,clear:false,rl:0,lockT:0,lockX:0,lockY:0};
+  const R={row,books,btns:[],g:null,H:0,s:0,v:0,T:0,a:0,aT:0,dx:0,dxT:0,tX:0,tY:0,ptr:null,clear:false,rl:0,lockT:0,lockX:0,lockY:0,tm:0,lm:0,spd:0,lx:0,ly:0};
+  /* hover intent: a book only moves once the pointer has rested on it, so fast passes (scrolling, sweeping) stay calm */
+  R.intent=(v,el,b)=>{
+    clearTimeout(R.tm);
+    const t0=performance.now(),need=R.aT?110:170;
+    const check=()=>{
+      const now=performance.now(),still=now-R.lm>70||R.spd<.3;
+      if((!still||now-lastScroll<160)&&now-t0<1200){R.tm=setTimeout(check,70);return}
+      if(now-t0>=1200&&!still)return;
+      showTip(el,b);R.enter(v);
+    };
+    R.tm=setTimeout(check,need);
+  };
   R.enter=v=>{
     const now=performance.now();
     if(R.aT===0&&now-lastScroll<140)return;                        /* a wheel scroll passing over the shelf is not a hover */
@@ -182,10 +194,12 @@ function rowEngine(row,books){
     R.clear=false;row.classList.add('live');if(!RE.includes(R))RE.push(R);
     if(!reRaf){reLast=performance.now();reRaf=requestAnimationFrame(reFrame)}
   };
-  row.addEventListener('pointerleave',()=>{R.aT=0;R.ptr=null});
+  row.addEventListener('pointerleave',()=>{clearTimeout(R.tm);R.tm=0;R.aT=0;R.ptr=null});
   row.addEventListener('pointermove',e=>{
+    const now=performance.now(),dtm=Math.max(1,now-R.lm),d=Math.hypot(e.clientX-R.lx,e.clientY-R.ly);
+    R.spd=R.spd*.6+(d/dtm)*.4;R.lm=now;R.lx=e.clientX;R.ly=e.clientY;
     R.ptr={x:e.clientX,y:e.clientY};
-    if(R.aT===0){const sp=e.target.closest&&e.target.closest('.spine');if(sp)R.enter(+sp.dataset.i)}
+    if(R.aT===0){const sp=e.target.closest&&e.target.closest('.spine');if(sp&&!R.tm)R.intent(+sp.dataset.i,sp,R.books[+sp.dataset.i])}
   });
   /* the pulled-out cover is a 3D-transformed face, so test the click against its rectangle ourselves */
   const onCover=e=>{const act=R.btns[R.T];if(!(R.a>.5)||!act||!act._fc)return null;const r=act._fc.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom?act:null};
@@ -269,8 +283,10 @@ function spine(b,i,R){
   el.dataset.id=b.id;el.dataset.i=i;
   el.setAttribute('aria-label',b.t+', '+b.a);
   el.innerHTML='<span class="st">'+esc(b.t)+'</span><span class="sa">'+esc(b.a)+'</span><i class="sh"></i>';
-  el.onmouseenter=el.onfocus=()=>{showTip(el,b);if(R)R.enter(i)};
-  el.onmouseleave=el.onblur=hideTip;
+  el.onfocus=()=>{showTip(el,b);if(R)R.enter(i)};
+  el.onmouseenter=()=>{if(R)R.intent(i,el,b);else showTip(el,b)};
+  el.onmouseleave=()=>{if(R)clearTimeout(R.tm);hideTip()};
+  el.onblur=hideTip;
   el.onclick=()=>{origin=el;location.hash='b-'+b.id};
   return el;
 }
