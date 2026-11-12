@@ -8,12 +8,12 @@ import { READ_MAX, useAppWidth, useTheme } from '@/ui/theme';
 // LIMEN's editorial constitution: what the name means, what is here, and what this is not.
 const COBALT = '#3157D5', ULTRA = '#172C68', VERM = '#E6533D', GOLD = '#F2C94C', BONE = '#F5F0E6', INK = '#17191C';
 
-const QS = ["Why do we want what we can't have?", 'Why does criticism hurt so much?', 'How much of who we are is actually ours?', 'Why can freedom feel frightening?'];
+const QS = ["Why do we want what we can't have?", 'Why does criticism hurt so much?', 'How much of who we are is ours?', 'Why can freedom feel frightening?'];
 const HERE: [string, string][] = [
   ['Ideas', "Concepts that help explain something you've probably experienced but never quite had words for."],
   ['Thinkers', 'People who looked at familiar problems from unfamiliar angles.'],
-  ['Books', 'Books that are worth reading beyond the summary.'],
-  ['Threads', 'Because one idea usually leads somewhere else. A thinker leads to a book. A book raises another question. That question leads somewhere unexpected.'],
+  ['Books', 'Books worth reading beyond the summary.'],
+  ['Threads', 'One idea leads to another. A thinker leads to a book, the book raises a question, and the question takes you somewhere you didn\'t plan to go.'],
 ];
 const ISNT = ["It's not a course.", "It's not self-help.", "It's not an encyclopedia."];
 
@@ -47,14 +47,14 @@ export default function About() {
 
         <View style={{ paddingHorizontal: pad, marginTop: 48, gap: 20, width: tw + pad * 2 }}>
           <T v="label">Why LIMEN?</T>
-          <T v="display" size={30} style={{ lineHeight: 37 }}>Some questions don't go away just because you've learned more about them.</T>
+          <T v="display" size={30} style={{ lineHeight: 37 }}>Some questions don't go away once you've learned more about them.</T>
           <View style={{ gap: 4, marginTop: 4 }}>
             {QS.map(q => <T key={q} v="body" size={19} style={{ lineHeight: 30 }}>{q}</T>)}
           </View>
           <T v="body" size={18} style={{ lineHeight: 29, marginTop: 8 }}>LIMEN is a place to follow questions like these.</T>
           <T v="body" size={18} style={{ lineHeight: 29 }}>It brings together ideas from philosophy, psychology, culture, and the human sciences, then connects them to the people and books behind them.</T>
           <T v="body" size={18} style={{ lineHeight: 29 }}>You don't need to agree with any of it.</T>
-          <T v="body" size={18} style={{ lineHeight: 29 }}>You just need to be curious.</T>
+          <T v="body" size={18} style={{ lineHeight: 29 }}>Curiosity is enough.</T>
         </View>
 
         <View style={{ height: 2, width: 44, backgroundColor: VERM, marginLeft: pad, marginTop: 48 }} />
@@ -62,7 +62,7 @@ export default function About() {
           <T v="label">The name</T>
           <T v="display" size={30} style={{ lineHeight: 37 }}>Limen is Latin for <T v="display" size={30} color={VERM} style={{ lineHeight: 37 }}>threshold</T>.</T>
           <T v="body" size={18} style={{ lineHeight: 29 }}>A threshold is where one thing becomes another: inside and outside, before and after, familiar and unfamiliar.</T>
-          <T v="body" size={18} style={{ lineHeight: 29 }}>That's a useful way to think about LIMEN.</T>
+          <T v="body" size={18} style={{ lineHeight: 29 }}>LIMEN sits at that point.</T>
           <T v="body" size={18} style={{ lineHeight: 29 }}>You arrive with a question. You leave with another one.</T>
         </View>
 
@@ -79,13 +79,12 @@ export default function About() {
         <View style={{ backgroundColor: ULTRA, marginTop: 56, paddingHorizontal: pad, paddingVertical: 40, gap: 10 }}>
           <T v="label" color={GOLD} style={{ marginBottom: 6 }}>What LIMEN isn't</T>
           {ISNT.map(x => <T key={x} v="display" size={26} color={BONE} style={{ lineHeight: 33 }}>{x}</T>)}
-          <T v="body" size={17} color="#C9D3F0" style={{ marginTop: 12, lineHeight: 26 }}>And it's not trying to give you the answer before you've had time to think about the question.</T>
+          <T v="body" size={17} color="#C9D3F0" style={{ marginTop: 12, lineHeight: 26 }}>It won't hand you the answer before you've had time with the question.</T>
         </View>
 
         <View style={{ paddingHorizontal: pad, marginTop: 56, gap: 14, width: tw + pad * 2 }}>
           <T v="label">One last thing</T>
           <T v="body" size={18} style={{ lineHeight: 29 }}>You won't agree with everything here.</T>
-          <T v="body" size={18} style={{ lineHeight: 29 }}>That's part of the point.</T>
           <T v="display" size={30} style={{ lineHeight: 37, marginTop: 12 }}>Some ideas give you answers.</T>
           <T v="display" size={30} color={COBALT} style={{ lineHeight: 37 }}>The interesting ones change the question.</T>
         </View>
