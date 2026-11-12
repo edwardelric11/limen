@@ -230,12 +230,12 @@ export const SCENES: Record<string, (c: SceneCtx) => Scene> = {
     <Path d={`M 0 ${H} L 0 ${H * 0.66} C 30 ${H * 0.56}, 60 ${H * 0.7}, 100 ${H * 0.6} L 100 ${H} Z`} fill={P.soft} opacity={0.8} />
     <Path d={`M 0 ${H} L 0 ${H * 0.8} C 40 ${H * 0.72}, 70 ${H * 0.86}, 100 ${H * 0.78} L 100 ${H} Z`} fill={P.form} />
   </> }; },
-  // Alienation, pulled apart.
-  alienation: ({ W, H }) => ({ bg: MIST, still: true, node: <>
-    <SvgText x={7} y={H * 0.44} fontFamily="Figtree_600SemiBold" fontSize={Math.min(H * 0.34, 25)} fill={MOSS}>ALIEN</SvgText>
-    <SvgText x={93} y={H * 0.84} textAnchor="end" fontFamily="Figtree_600SemiBold" fontSize={Math.min(H * 0.34, 25)} fill={INK}>ATION</SvgText>
-    <Circle cx={50} cy={H * 0.62} r={1.8} fill={OCHRE} />
-  </> }),
+  // Alienation, pulled apart: one form split in two, and the small point that is left between them.
+  alienation: ({ W, H }) => { const cy = H * 0.5, r = Math.min(21, H * 0.3); return { bg: MIST, still: true, node: <>
+    <Path d={`M 41 ${cy - r} A ${r} ${r} 0 0 0 41 ${cy + r} Z`} fill={MOSS} />
+    <Path d={`M 59 ${cy - r} A ${r} ${r} 0 0 1 59 ${cy + r} Z`} fill={INK} />
+    <Circle cx={50} cy={cy} r={1.8} fill={OCHRE} />
+  </> }; },
 };
 
 // Which scene a seed gets. Ideas, themes and threads that share a visual idea share a scene, each drawn with its own variation.
